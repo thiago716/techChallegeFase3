@@ -1,0 +1,6 @@
+@TechChallegeFase3ContactStorage_HostAddress = http://localhost:5187
+
+GET {{TechChallegeFase3ContactStorage_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
