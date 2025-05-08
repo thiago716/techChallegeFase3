@@ -1,17 +1,15 @@
 ﻿using Application.Service.Base;
 using Application.Service.Interface;
+using Application.ViewModel;
 using Core.Entity;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using Microsoft.Extensions.Options;
 
 namespace Application.External
 {
     public class DirectDistanceDialingExternalService: BaseService<DirectDistanceDialing>, IDirectDistanceDialingService
     {
-        public DirectDistanceDialingExternalService(HttpClient httpClient) : base(httpClient, "https://api.exemplo.com/DirectDistanceDialing")
+        public DirectDistanceDialingExternalService(HttpClient httpClient, IOptions<ApiSettings> options)
+            : base(httpClient, options.Value.ContactStorageUrl)
         {
         }
     }

@@ -1,6 +1,7 @@
 ﻿using Application.External;
 using Application.Service.Interface;
 using Application.ViewModel;
+using Application.Service.Base;
 using Polly.Extensions.Http;
 using Polly;
 
@@ -12,12 +13,21 @@ namespace WebApi.Extensions
         {
             services.Configure<ApiSettings>(configuration.GetSection("ApiSettings"));
 
-            services.AddHttpClient<ContactService>()
+            services.AddHttpClient<ContactExternalService>()
                 .AddPolicyHandler(GetRetryPolicy())
                 .AddPolicyHandler(GetTimeoutPolicy())
                 .AddPolicyHandler(GetCircuitBreakerPolicy());
 
-            services.AddScoped<IContactService, ContactService>();
+            services.AddHttpClient<DirectDistanceDialingExternalService>()
+                .AddPolicyHandler(GetRetryPolicy())
+                .AddPolicyHandler(GetTimeoutPolicy())
+                .AddPolicyHandler(GetCircuitBreakerPolicy());
+
+            services.AddMemoryCache();
+
+
+            services.AddScoped<IContactService, ContactExternalService>();
+            services.AddScoped<IDirectDistanceDialingService, DirectDistanceDialingExternalService>();
 
             return services;
         }

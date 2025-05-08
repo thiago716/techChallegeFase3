@@ -1,9 +1,10 @@
-﻿using Core.Entity;
+﻿using Application.ViewModel;
+using Core.Entity;
 
 namespace Application.Service.Interface
 {
     public interface IContactService : IService<Contact>
     {
-        Task<IList<Contact>> GetAllByDddAsync(int dddId);
+        Task<IList<ContactResult>> GetAllByDddAsync(int dddId);
     }
 }
